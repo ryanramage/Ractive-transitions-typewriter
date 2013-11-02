@@ -5,7 +5,7 @@ Ractive.js typewriter transition plugin
 
 This transition 'writes' characters onto the page one at a time, hiding and showing child elements as necessary.
 
-[See the demo here.](http://ractivejs.github.io/Ractive-transitions-fly/)
+[See the demo here.](http://ractivejs.github.io/Ractive-transitions-typewriter/)
 
 Usage
 -----
