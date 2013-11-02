@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang='en-GB'>
+<head>
+	<meta charset='utf-8'>
+	<title>Ractive-transitions-typewriter</title>
+
+	<!-- CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' href='demo/main.css'>
+	<link rel='stylesheet' href='demo/prettyprint.css'>
+
+	<!-- TODO add styles specific to this demo -->
+	<style type='text/css'>
+		#demo div:first-letter {
+			font-size: 6em;
+			float: left;
+			line-height: 1;
+			font-family: 'Voltaire';
+			margin: 0 0.1em 0.1em 0;
+		}
+
+		#demo p:last-child {
+			margin-bottom: 0;
+		}
+
+		.promo {
+			text-align: center;
+			padding: 0.5em;
+			background-color: #f9f9f9;
+			border-top: 1px solid rgba(0,0,0,0.05);
+			border-bottom: 1px solid rgba(0,0,0,0.05);
+			font-style: italic;
+		}
+
+		.promo em, .promo a {
+			display: inline-block;
+			text-align: left;
+		}
+
+		#demo button {
+			display: block;
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- if the project is on GitHub, add a fork me button! -->
+	<!-- <a class='forkme' href='https://github.com/you/repo'>Fork me on GitHub</a> -->
+
+	<header>
+		<h1>Ractive.js typewriter transition plugin</h1>
+		<p class='strap'>
+			<span class='download'>download: <a href='[TODO]'>Ractive-transitions-typewriter.js</a></span>
+			<span class='more-plugins'>more plugins at <a href='http://ractivejs.org/plugins'>ractivejs.org/plugins</a></span>
+		</p>
+	</header>
+
+	<main>
+		<p>This transition 'writes' characters onto the page one at a time, hiding and showing child elements as necessary.</p>
+
+		<p>It will attempt to prevent words 'jumping' at the end of each line as they are written, by adding non-breaking whitespace to the end of the current word so that it wraps onto the next line where it will eventually live. This isn't perfect, especially with non-monospace fonts, but it looks more or less okay if the speed isn't too slow.</p>
+
+		<p>If you use <code>text-align: right</code> or <code>text-align: center</code> on an element, it's recommended to set the <code>display</code> style to <code>inline-block</code>, so that the plugin can calculate dimensions in advance.</p>
+
+		<div id='demo'></div>
+
+		<pre id='demo-template-view' class='prettyprint lang-html'></pre>
+		<pre id='demo-code-view' class='prettyprint lang-js'></pre>
+	</main>
+
+	<!-- add additional info such as your homepage here, if you want -->
+	<footer>
+		<p>Copyright &copy; 2013 Rich Harris. Licensed MIT</p>
+	</footer>
+
+	<!-- Demo template -->
+	<script id='demo-template' type='text/ractive'>
+		{{#visible}}
+			<div intro='typewriter:{"speed":400}'>
+				<p>Food truck whatever kitsch deserunt butcher American Apparel. Keytar literally Williamsburg consequat, mustache cray before they sold out aesthetic blog Schlitz retro roof party Truffaut. Brooklyn gastropub Carles nesciunt assumenda aliquip. Shoreditch banh mi fugiat, occaecat messenger bag sed polaroid mumblecore nulla sapiente ethnic ennui. <strong>Twee tofu ennui, fap reprehenderit roof party craft beer church-key stumptown officia skateboard enim flannel.</strong> Squid adipisicing kitsch, scenester tousled hashtag roof party vegan aliquip eiusmod anim esse lo-fi ethnic slow-carb. Pariatur Terry Richardson yr, tofu pour-over reprehenderit nesciunt pop-up hoodie.</p>
+
+				<p class='promo'><em>Artisanal filler text courtesy of <a href='http://hipsteripsum.me/'>hipsteripsum.me</a></em></p>
+
+				<p>Polaroid literally et readymade squid, VHS organic proident mustache. Beard PBR deserunt, drinking vinegar Banksy odio direct trade non sriracha organic do disrupt. Typewriter mollit four loko PBR&B duis mlkshk. Cosby sweater scenester Austin magna PBR. Assumenda twee lomo, High Life salvia semiotics irure Shoreditch 8-bit nulla ea fanny pack post-ironic aute. Stumptown pop-up culpa leggings, lo-fi ex cardigan beard swag deep v freegan. Eu hoodie ethical, cupidatat four loko accusamus slow-carb lo-fi mustache DIY odio polaroid magna.</p>
+
+				<button on-tap='repeat'>Show me again!</button>
+			</div>
+		{{/visible}}
+	</script>
+
+	<!-- Dependencies -->
+	<script src='lib/Ractive-legacy.js'></script>
+	<script src='src/Ractive-transitions-typewriter.js'></script>
+
+	<!-- Demo code -->
+	<script id='demo-code'>
+		// TODO
+		ractive = new Ractive({
+			el: 'demo',
+			template: '#demo-template',
+			data: { visible: true }
+		});
+
+		ractive.on( 'repeat', function () {
+			this.set( 'visible', false );
+			this.set( 'visible', true );
+		});
+	</script>
+
+	<!-- Insert code into the page -->
+	<script src='demo/prettify.js'></script>
+	<script src='demo/demo.js'></script>
+</body>
+</html>
