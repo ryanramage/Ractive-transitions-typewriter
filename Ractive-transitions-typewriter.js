@@ -5,7 +5,8 @@
 
 	Version 0.1.0.
 
-	<< description goes here... >>
+	This transition 'writes' characters onto the page one at a time,
+	hiding and showing child elements as necessary.
 
 	==========================
 
@@ -26,7 +27,14 @@
 	    // the return value
 	    require( 'Ractive-transitions-typewriter' );
 
-	<< more specific instructions for this plugin go here... >>
+	To control the speed at which the typewriting happens, you have
+	three options - you can adjust the `interval`, `speed` or `duration`.
+	The `interval` is the gap between characters in milliseconds, `speed`
+	is the number of characters per second, and `duration` is the number
+	of milliseconds for the entire job. (These should be treated as
+	targets - in all likelihood, the browser will be slightly out.)
+
+	    <p intro='typewriter:{"speed":200}'>some text</p>
 
 */
 
@@ -79,7 +87,12 @@
 		next = function () {
 			if ( !children.length ) {
 				if ( node.nodeType === 1 && isIntro ) {
-					node.setAttribute( 'style', node._style || '' );
+					if ( node._style ) {
+						node.setAttribute( 'style', node._style );
+					} else {
+						node.getAttribute( 'style' );
+						node.removeAttribute( 'style' );
+					}
 				}
 
 				complete();
@@ -155,8 +168,6 @@
 				node._display = computedStyle.display;
 				node._width = computedStyle.width;
 				node._height = computedStyle.height;
-
-				node.style.display = 'none';
 			}
 
 			if ( node.nodeType === 3 ) {
@@ -171,6 +182,8 @@
 			while ( i-- ) {
 				hide( children[i] );
 			}
+
+			node.style.display = 'none';
 		};
 
 		if ( t.isIntro ) {
