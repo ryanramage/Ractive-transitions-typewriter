@@ -65,7 +65,7 @@
 
 	'use strict';
 
-	var typewriter, typewriteNode, typewriteTextNode, props;
+	var typewriter, typewriteNode, typewriteTextNode, props, defaults;
 
 	typewriteNode = function ( node, isIntro, complete, interval ) {
 		var children, next, method;
@@ -151,12 +151,25 @@
 		'visibility'
 	];
 
+	defaults = {
+
+	};
+
 	// TODO differentiate between intro and outro
-	typewriter = function ( t ) {
+	typewriter = function ( t, params ) {
 		var interval, currentStyle, hide;
 
-		interval = t.interval || ( t.speed ? 1000 / t.speed : ( t.duration ? t.node.textContent.length / t.duration : 4 ) );
-		
+		params = t.processParams( params, defaults );
+
+		// Find the interval between each character. Default
+		// to 4 milliseconds
+		interval = params.interval || (
+			params.speed ? 1000 / params.speed :
+				( params.duration ? t.node.textContent.length / params.duration :
+					4
+				)
+			);
+
 		currentStyle = t.getStyle( props );
 
 		hide = function ( node ) {
@@ -173,7 +186,7 @@
 			if ( node.nodeType === 3 ) {
 				node._hiddenData = '' + node.data;
 				node.data = '';
-				
+
 				return;
 			}
 
@@ -194,11 +207,8 @@
 			// make style explicit...
 			t.setStyle( currentStyle );
 
-			typewriteNode( t.node, t.isIntro, function () {
-				t.resetStyle();
-				t.complete();
-			}, interval );
-		}, t.delay || 0 );
+			typewriteNode( t.node, t.isIntro, t.complete, interval );
+		}, params.delay || 0 );
 	};
 
 	Ractive.transitions.typewriter = typewriter;
