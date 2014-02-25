@@ -5,6 +5,12 @@
 		"name": "Rich Harris"
 	},
 	"main": "Ractive-transitions-typewriter.js",
+	"description": "Write characters onto the page, one at a time. For Ractive.js",
+	"jam": {
+			"dependencies": {
+				"Ractive": ">= 0.3.8"
+			}
+	},
 	"devDependencies": {
 		"grunt": "~0.4.1",
 		"grunt-contrib-concat": "~0.3.0",
